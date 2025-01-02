@@ -76,15 +76,84 @@ import ic_success_green from "@/assets/icons/product/ic-success.svg";
 import ic_trash from "@/assets/icons/product/ic-trash.svg";
 import ic_video from "@/assets/icons/product/ic-video.svg";
 
-export {ic_cart, ic_evenlope, ic_lock, ic_phone,
-    ic_action_cell, ic_arrow_down, ic_arrow_up, ic_avatar_gray, ic_balance, ic_chevron,
-    ic_dot_blue, ic_dot_orange, ic_dots_vertical, ic_filter, ic_product,
-    ic_total_revenue, ic_total_seller,
-    ic_analysis, ic_avatar, ic_calendar, ic_customer, ic_dashboard, ic_gray, ic_logo, ic_menu,
-    ic_notification, ic_search, ic_seller, ic_setting, ic_support,
-    ic_address, ic_calendar_c, ic_customer_c, ic_invoice, ic_order, ic_packer, ic_payment,
-    ic_phone_c, ic_processing, ic_reward, ic_shipping, ic_success_gray,
-    ic_cross,ic_dollar, ic_export, ic_eye, ic_image, ic_pen, ic_plus, ic_save, ic_success_green, ic_trash, ic_video,
-    ic_shoping, ic_cart_menu, ic_cart_white,ic_customer_white,ic_dashboard_gray,ic_product_blue,ic_envelope_menu,
-    ic_chevron_down, ic_receipt, ic_receipt_c, ic_cart_order, ic_avatar_cus, ic_cart_red, ic_wallet
+// Define a map for icons
+const iconMap: Record<string, string> = {
+    ic_cart: ic_cart,
+    ic_evenlope: ic_evenlope,
+    ic_lock: ic_lock,
+    ic_phone: ic_phone,
+    ic_avatar_cus: ic_avatar_cus,
+    ic_wallet: ic_wallet,
+    ic_cart_red: ic_cart_red,
+    ic_action_cell: ic_action_cell,
+    ic_arrow_down: ic_arrow_down,
+    ic_arrow_up: ic_arrow_up,
+    ic_avatar_gray: ic_avatar_gray,
+    ic_balance: ic_balance,
+    ic_chevron: ic_chevron,
+    ic_dot_blue: ic_dot_blue,
+    ic_dot_orange: ic_dot_orange,
+    ic_dots_vertical: ic_dots_vertical,
+    ic_filter: ic_filter,
+    ic_product: ic_product,
+    ic_total_revenue: ic_total_revenue,
+    ic_total_seller: ic_total_seller,
+    ic_analysis: ic_analysis,
+    ic_avatar: ic_avatar,
+    ic_calendar: ic_calendar,
+    ic_customer: ic_customer,
+    ic_dashboard: ic_dashboard,
+    ic_gray: ic_gray,
+    ic_logo: ic_logo,
+    ic_menu: ic_menu,
+    ic_notification: ic_notification,
+    ic_search: ic_search,
+    ic_seller: ic_seller,
+    ic_setting: ic_setting,
+    ic_support: ic_support,
+    ic_shoping: ic_shoping,
+    ic_cart_menu: ic_cart_menu,
+    ic_cart_white: ic_cart_white,
+    ic_customer_white: ic_customer_white,
+    ic_dashboard_gray: ic_dashboard_gray,
+    ic_product_blue: ic_product_blue,
+    ic_envelope_menu: ic_envelope_menu,
+    ic_chevron_down: ic_chevron_down,
+    ic_address: ic_address,
+    ic_calendar_c: ic_calendar_c,
+    ic_customer_c: ic_customer_c,
+    ic_invoice: ic_invoice,
+    ic_order: ic_order,
+    ic_packer: ic_packer,
+    ic_payment: ic_payment,
+    ic_phone_c: ic_phone_c,
+    ic_processing: ic_processing,
+    ic_reward: ic_reward,
+    ic_shipping: ic_shipping,
+    ic_success_gray: ic_success_gray,
+    ic_cross: ic_cross,
+    ic_dollar: ic_dollar,
+    ic_export: ic_export,
+    ic_eye: ic_eye,
+    ic_image: ic_image,
+    ic_pen: ic_pen,
+    ic_plus: ic_plus,
+    ic_save: ic_save,
+    ic_success_green: ic_success_green,
+    ic_trash: ic_trash,
+    ic_video: ic_video,
+    ic_receipt: ic_receipt,
+    ic_receipt_c: ic_receipt_c,
+    ic_cart_order: ic_cart_order
 };
+
+// Function to get the icon by name
+export const localIcon = (iconName: string): string | undefined => {
+    const icon = iconMap[iconName];
+    if (!icon) {
+        console.error(`Icon with name "${iconName}" not found.`);
+    }
+    return icon;
+}
+
+

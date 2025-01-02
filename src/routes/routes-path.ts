@@ -6,18 +6,9 @@ import { Router } from "./router";
  * @enum {String}
  */
 export enum RoutesPath {
-    Home = "/",
-    Product = "/product",
+    Product = "/",
     AddProduct = "/add-product",
     ProductDetail = "/product-detail/:productId",
-    Categories = "/categories",
-    AddCategory = "/add-category",
-    CategoryDetail = "/category-detail/:categoryId",
-    Order = "/order",
-    OrderDetail = "/order-detail/:orderId",
-    Customer = "/customer", 
-    CustomerDetail = "/customer-detail/:customerId",
-    Seller = "/seller"
 }
 /**
  * Replace param in path with actual value from URL
@@ -32,18 +23,9 @@ const replaceParamInPath = (path: string, paramKey: string): string => {
 };
 
 export const getPath = {
-    [RoutesPath.Home]: () => RoutesPath.Home,
     [RoutesPath.Product]: () => RoutesPath.Product,
     [RoutesPath.AddProduct]: () => RoutesPath.AddProduct,
     [RoutesPath.ProductDetail]: () => replaceParamInPath(RoutesPath.ProductDetail, "productId"),
-    [RoutesPath.Categories]: () => RoutesPath.Categories,
-    [RoutesPath.AddCategory]: () => RoutesPath.AddCategory,
-    [RoutesPath.CategoryDetail]: () => replaceParamInPath(RoutesPath.CategoryDetail, "categoryId"),
-    [RoutesPath.Order]: () => RoutesPath.Order,
-    [RoutesPath.OrderDetail]: () => replaceParamInPath(RoutesPath.OrderDetail, "orderId"),
-    [RoutesPath.Customer]: () => RoutesPath.Customer,
-    [RoutesPath.CustomerDetail]: () => replaceParamInPath(RoutesPath.CustomerDetail, "customerId"),
-    [RoutesPath.Seller]: () => RoutesPath.Seller
 };
 
 /**
@@ -52,16 +34,7 @@ export const getPath = {
  * @readonly
  */
 export const breadcrumbs: Record<RoutesPath, string> = {
-    [RoutesPath.Home]: "Dashboard",
     [RoutesPath.Product]: "Product List",
     [RoutesPath.AddProduct]: "Add Product",
     [RoutesPath.ProductDetail]: "Product Details",
-    [RoutesPath.Categories]: "Categories",
-    [RoutesPath.AddCategory]: "Add Category",
-    [RoutesPath.CategoryDetail]: "Category Details",
-    [RoutesPath.Order]: "Order List",
-    [RoutesPath.OrderDetail]: "Order Details",
-    [RoutesPath.Customer]: "Customer List",
-    [RoutesPath.CustomerDetail]: "Customer Details",
-    [RoutesPath.Seller]: "Seller Dashboard",
 };
