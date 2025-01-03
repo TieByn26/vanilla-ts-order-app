@@ -1,24 +1,29 @@
-import { breadcrumbs, getPath } from "@/constants";
+import { RoutesPath, breadcrumbs, getPath } from "../../../../routes";
 import { Link } from "../link";
-import { elementHtml } from "@/utils";
-import { ic_chevron_down } from "@/constants";
+import { HtmlElement } from "../../../../utils";
+import { localIcon } from "../../../../assets/icons";
 /** USAGE:
  * const breadcrumb = new Breadcrumb(routePaths.home, routePaths.products, ...);
  * this.container.append(breadcrumb.render());
  */
-const element = new elementHtml();
 export class Breadcrumb{
-    constructor(routePaths, title){
+    routePaths: string[];
+    container: HTMLElement;
+    title: HTMLElement;
+    breadcrumb: HTMLElement;
+    staticBreadcrumb: HTMLElement;
+    
+    constructor(routePaths: string[], title: string){
         this.routePaths = routePaths;
-        this.container = element.divELement("breadcrumb-container");
+        this.container = HtmlElement.divELement("breadcrumb-container");
         //title page
-        this.title = element.spanElement("breadcrumb-title",title);
+        this.title = HtmlElement.spanElement("breadcrumb-title",title);
         //breadcrumb
-        this.breadcrumb = element.divELement("breadcrumb-attributes");
+        this.breadcrumb = HtmlElement.divELement("breadcrumb-attributes");
         this.initBreadcrumbLink();
-        this.staticBreadcrumb = element.spanElement("static-breadcrumb",breadcrumbs[routePaths.slice(-1)]);
+        const lastRoutePath = routePaths.slice(-1)[0] as RoutesPath; // Lấy phần tử cuối cùng
+        this.staticBreadcrumb = HtmlElement.spanElement("static-breadcrumb", breadcrumbs[lastRoutePath]);        
         this.breadcrumb.appendChild(this.staticBreadcrumb);
-        // this.staticBreadcrumb = new Link(getPath[routePaths.slice(-1)],breadcrumbs[routePaths.slice(-1)]);
         this.container.append(this.title, this.breadcrumb);
     }
     initBreadcrumbLink(){
@@ -26,17 +31,17 @@ export class Breadcrumb{
             if (index === this.routePaths.length -1) {
                 return;
             }
-            const link = new Link(getPath[path](),breadcrumbs[path]).render();
+            const link = new Link(getPath[path as RoutesPath]() ,breadcrumbs[path as RoutesPath]).render();
             link.className = "breadcrumb-link";
             this.breadcrumb.append(link, this.getSeparator());
         })
     }
     getSeparator(){
-        const separator = element.imgElement(ic_chevron_down,"icon","breadcrumb-separator");
+        const separator = HtmlElement.imgElement(localIcon("ic_chevron_down"),"icon","breadcrumb-separator");
         // separator.textContent = ">";
         return separator;
     }
-    render(){
+    render(): Node{
         return this.container;
     }
 }

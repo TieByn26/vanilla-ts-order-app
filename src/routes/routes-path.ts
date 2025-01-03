@@ -22,7 +22,7 @@ const replaceParamInPath = (path: string, paramKey: string): string => {
     return path.replace(`:${paramKey}`, params[paramKey]);
 };
 
-export const getPath = {
+export const getPath: Record<RoutesPath, any > = {
     [RoutesPath.Product]: () => RoutesPath.Product,
     [RoutesPath.AddProduct]: () => RoutesPath.AddProduct,
     [RoutesPath.ProductDetail]: () => replaceParamInPath(RoutesPath.ProductDetail, "productId"),

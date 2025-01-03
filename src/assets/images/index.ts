@@ -30,7 +30,7 @@ const imageMap: Record<string, string> = {
 };
 
 // Function to get the image by name
-export const localImage = (imageName: string): string | undefined => {
+export const localImage = (imageName: string): string => {
     const image = imageMap[imageName];
     if (!image) {
         console.error(`Image with name "${imageName}" not found.`);

@@ -1,13 +1,14 @@
-import { elementHtml } from "@/utils";
+import { HtmlElement } from "../../../../utils";
 import { Link } from "../link";
 export class button {
-    constructor() {}
-    elHtml = new elementHtml();
+    constructor() {
 
-    buttonLink(to, label, icon) {
+    }
+
+    buttonLink(to: string, label: string, icon: string) {
         const container = new Link(to).render();
-        const img = this.elHtml.imgElement(icon, "icon");
-        const span = this.elHtml.spanElement("",label);
+        const img = HtmlElement.imgElement(icon, "icon");
+        const span = HtmlElement.spanElement("",label);
 
         container.appendChild(img);
         container.appendChild(span);
@@ -24,7 +25,7 @@ export class button {
         return container;
     }
 
-    render(params, options = {}) {
+    render(params: string, options = {}): HTMLElement {
         return this.createButton({...options, className: params});
     }
 }

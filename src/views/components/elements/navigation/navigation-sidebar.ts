@@ -1,16 +1,11 @@
 import { navLink } from "../link";
-import { elementHtml } from "@/utils";
-import {
-    ic_dashboard, ic_analysis, ic_seller,
-    ic_cart_menu, ic_shoping, ic_customer,
-    ic_logo, ic_setting, ic_support,
-    ic_cart_white, ic_product_blue, ic_dashboard_gray,
-    ic_customer_white, routesPath,
-    pic_white, ic_chevron_down, ic_chevron_up
-} from "@/constants";
+import { HtmlElement } from "../../../../utils";
+import { localIcon } from "../../../../assets/icons";
+import { localImage } from "../../../../assets/images";
+import { RoutesPath } from "../../../../routes";
 
 export class NavList {
-    element = new elementHtml();
+    ul: HTMLUListElement;
     
     constructor() {
         this.ul = document.createElement("ul");
@@ -22,14 +17,29 @@ export class NavList {
      */
     renderNavigationLinks() {
         const navigationLinkItems = [
-            { icon: ic_dashboard_gray, iconActive: ic_dashboard, to: routesPath.home, label: "Dashboard", componentPath: ["/"] },
-            { icon: ic_shoping, iconActive: ic_product_blue, to: routesPath.product, label: "Product", componentPath: ["/product", "/product-detail/:productId", "/add-product"],chevdown: ic_chevron_down,chevup: ic_chevron_up, isTrue:true},
-            { icon: ic_cart_menu, iconActive: ic_cart_white, to: routesPath.order, label: "Order", componentPath: ["/order","/order-detail/:orderId"] },
-            { icon: ic_customer, iconActive: ic_customer_white, to: routesPath.customer, label: "Customers", componentPath: ["/customer","/customer-detail/:customerId"] },
-            { icon: ic_seller, iconActive: ic_seller, to: routesPath.seller, label: "Seller", componentPath: ["/seller"] },
-            { icon: ic_analysis, iconActive: ic_analysis, to: "/analysis", label: "Analytics", componentPath: ["/analysis"] },
-            { icon: ic_setting, iconActive: ic_setting, to: "/setting", label: "Setting", componentPath: ["/setting"] },
-            { icon: ic_support, iconActive: ic_support, to: "/support", label: "Support", componentPath: ["/support"] }
+            { 
+                icon: localIcon("ic_shoping"), 
+                iconActive: localIcon("ic_product_blue"), 
+                to: RoutesPath.Product , 
+                label: "Product", 
+                componentPath: ["/product", "/product-detail/:productId", "/add-product"],
+                chevdown: localIcon("ic_chevron_down"),
+                chevup: localImage("ic_chevron_up"), 
+                isTrue:true
+            },
+            { 
+                icon: localIcon("ic_setting"),
+                iconActive: localIcon("ic_setting"), 
+                to: "/setting", 
+                label: "Setting", 
+                componentPath: ["/setting"] 
+            },
+            { 
+                icon: localIcon("ic_support"), 
+                iconActive: localIcon("ic_support"), 
+                to: "/support", label: "Support", 
+                componentPath: ["/support"] 
+            }
         ];
 
         //minimizes reflows and improves performance when inserting multiple elements into the DOM.
@@ -39,24 +49,53 @@ export class NavList {
         navigationLinkItems.forEach(item => {
             const li = document.createElement("li");
             if (item.isTrue){
-                const navlink = new navLink(item.icon, item.iconActive, item.label, item.to, item.componentPath, item.chevdown, item.chevup);
+                const navlink = new navLink({
+                    icon: item.icon,
+                    iconActive: item.iconActive,
+                    label: item.label,
+                    to: item.to,
+                    componentPaths: item.componentPath, 
+                    chevdown: item.chevdown,
+                    chevup: item.chevup
+                });                
                 li.appendChild(navlink.render());
                 fragment.appendChild(li);
                 if (item.isTrue && navlink.render().classList.contains('nav-link-active')){
                     const li1 = document.createElement("li");
                     const componentPathPro = ["/product", "/product-detail/:productId", "/add-product"];
-                    const navlink1 = new navLink(pic_white,ic_product_blue,"Product List",routesPath.product,componentPathPro).render();
+                    const navlink1 = new navLink({
+                        icon: localIcon("pic_white"),
+                        iconActive: localIcon("ic_product_blue"),
+                        label: "Product List",
+                        to: RoutesPath.Product,
+                        componentPaths: componentPathPro,
+                    })
+                    .render();
                     li1.appendChild(navlink1);
                     fragment.appendChild(li1);
                     const li2 = document.createElement("li");
                     const componentPathCate = ["/categories", "/category-detail/:categoryId", "/add-category"];
-                    const navlink2 = new navLink(pic_white,ic_product_blue,"Categories",routesPath.categories,componentPathCate).render();
+                    const navlink2 = new navLink({
+                        icon: localIcon("pic_white"),
+                        iconActive: localIcon("ic_product_blue"),
+                        label: "Categories",
+                        to: "categories",
+                        componentPaths: componentPathCate 
+                    }).render();
+                    
                     li2.appendChild(navlink2);
                     fragment.appendChild(li2);
                 }
                 return;
             }
-            const navlink = new navLink(item.icon, item.iconActive, item.label, item.to, item.componentPath);
+            const navlink = new navLink({
+                icon: item.icon,
+                iconActive: item.iconActive,
+                label: item.label,
+                to: item.to,
+                componentPaths: item.componentPath, 
+            });
+            
             li.appendChild(navlink.render());
             fragment.appendChild(li);
         });
@@ -69,14 +108,14 @@ export class NavList {
      * create logo element
      * @returns {HTMLElement}
      */
-    createLogo() {
-        const li = this.element.liElement("logo");
-        li.appendChild(this.element.imgElement(ic_logo, "logo", ""));
-        li.appendChild(this.element.spanElement("", "Dashlab"));
+    createLogo(): Node {
+        const li = HtmlElement.liElement("logo");
+        li.appendChild(HtmlElement.imgElement(localIcon("ic_logo"), "logo", ""));
+        li.appendChild(HtmlElement.spanElement("", "Dashlab"));
         return li;
     }
 
-    render() {
+    render(): Node {
         return this.ul;
     }
 }

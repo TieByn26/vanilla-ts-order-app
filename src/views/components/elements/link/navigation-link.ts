@@ -1,11 +1,28 @@
-import { elementHtml } from "@/utils";
-import { anchorAttributes } from "@/constants";
-import { router } from "@/routes";
+import { HtmlElement } from "../../../../utils";
+import { anchorAttributes } from "../../../../utils";
+import { Router } from "../../../../routes";
+
+type NavLink = {
+    icon: string,
+    iconActive: string,
+    label: string,
+    to: string,
+    componentPaths?: string[],
+    chevdown?: string,
+    chevup?: string
+};
 
 export class navLink {
-    element = new elementHtml();
+    navlink: HTMLElement;
+    icon: string;
+    iconActive: string;
+    label: string;
+    to?: string;
+    componentPaths: string[];
+    chevdown?: string;
+    chevup?: string;
 
-    constructor(icon, iconActive, label, to, componentPaths = [], chevdown, chevup) {
+    constructor({icon, iconActive, label, to, componentPaths = [], chevdown, chevup}: NavLink) {
         if (chevdown && chevup){
             this.chevdown = chevdown;
             this.chevup = chevup;
@@ -19,20 +36,20 @@ export class navLink {
         this.addEvents();
     }
 
-    createLink(label) {
-        const link = this.element.aElement(this.getActiveClass(), this.to);
+    createLink(label: string): HTMLElement {
+        const link = HtmlElement.aElement(this.getActiveClass(), this.to);
         link.setAttribute(anchorAttributes.navLink, "");
         link.append(
-            this.element.imgElement(this.icon, "icon", ""),
-            this.element.spanElement("", label)
+            HtmlElement.imgElement(this.icon, "icon", ""),
+            HtmlElement.spanElement("", label)
         );
         if (this.chevdown){
-            link.appendChild(this.element.imgElement(this.chevdown, "icon","chev"));
+            link.appendChild(HtmlElement.imgElement(this.chevdown, "icon","chev"));
         }
         return link;
     }
 
-    getActiveClass() {
+    getActiveClass(): string {
         const isActive = this.isActive();
         if (isActive) {
             this.icon = this.iconActive;
@@ -62,7 +79,7 @@ export class navLink {
         return this.componentPaths.some(path => this.matchPath(currentPath, path));
     }
 
-    matchPath(url, path) {
+    matchPath(url: string, path: string): boolean {
         const urlSegments = url.split("/");
         const pathSegments = path.split("/");
         return pathSegments.every((seg, i) => seg.startsWith(":") || seg === urlSegments[i]);
@@ -71,21 +88,11 @@ export class navLink {
     addEvents() {
         this.navlink.addEventListener("click", (e) => {
             e.preventDefault();
-            router.pushState(this.to);
+            Router.pushState(this.to as string);
         });
-
-        // window.addEventListener("urlChanged", () => {
-        //     this.updateActiveState();
-        // });
     }
 
-    // updateActiveState() {
-    //     const isActive = this.isActive();
-    //     this.navlink.className = `nav-link ${isActive ? "nav-link-active" : ""}`;
-    //     this.navlink.querySelector('img').src = isActive ? this.iconActive : this.icon;
-    // }
-
-    render() {
+    render(): HTMLElement {
         return this.navlink;
     }
 }

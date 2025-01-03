@@ -1,17 +1,16 @@
-import { elementHtml } from "@/utils";
-import {  ic_cross } from "@/constants";
+import { HtmlElement } from "../../../../utils";
+import { localIcon } from "../../../../assets/icons";
 
-const element = new elementHtml();
 export class Toast {
 
-    static toastShow(className,icon,title,message){
-        const toastM = element.divELement(className);
-        const iconn = element.imgElement(icon,"icon","")
-        const divContent = element.divELement("");
-        const spanTitle = element.spanElement("",title);
-        const spanMessage = element.spanElement("",message);
+    static toastShow(className: string, icon: string, title: string, message: string){
+        const toastM = HtmlElement.divELement(className);
+        const iconn = HtmlElement.imgElement(icon,"icon","")
+        const divContent = HtmlElement.divELement("");
+        const spanTitle = HtmlElement.spanElement("",title);
+        const spanMessage = HtmlElement.spanElement("",message);
         divContent.append(spanTitle, spanMessage);
-        const cancel = element.imgElement(ic_cross,"icon","cancel-icon");
+        const cancel = HtmlElement.imgElement(localIcon("pic_white"),"icon","cancel-icon");
         toastM.append(iconn, divContent, cancel);
 
         setTimeout(()=>{

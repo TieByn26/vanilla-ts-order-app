@@ -1,5 +1,5 @@
-import { anchorAttributes } from "@/constants";
-import { router } from "@/routes";
+import { anchorAttributes } from "../../../../utils";
+import { Router } from "../../../../routes";
 
 /** USAGE
  * const link = new Link(to, text);
@@ -11,7 +11,8 @@ export class Link {
      * @param {String} to - target URL 
      * @param {String} text - optional text for the link element
      */
-    constructor(to, text = '') {
+    link: HTMLElement;
+    constructor(to: string, text: string = '') {
         this.link = this.createLinkElement(to, text);
     }
 
@@ -21,7 +22,7 @@ export class Link {
      * @param {String} text 
      * @returns {HTMLElement} - anchor element
      */
-    createLinkElement(to, text) {
+    createLinkElement(to: string, text: string): HTMLElement {
         const link = document.createElement("a");
         link.href = to;
         link.textContent = text;  // Set text if provided
@@ -36,16 +37,16 @@ export class Link {
      * Handle click event to prevent page reload and update new path
      * @param {Event} event 
      */
-    handleLinkClick(event) {
+    handleLinkClick(event: Event) {
         event.preventDefault();
-        router.pushState(this.link.getAttribute("href"));
+        Router.pushState(this.link.getAttribute("href") as string);
     }
 
     /**
      * Render the anchor element
      * @returns {HTMLElement} - the link element
      */
-    render() {
+    render(): HTMLElement {
         return this.link;
     }
 }

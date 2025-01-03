@@ -148,7 +148,7 @@ const iconMap: Record<string, string> = {
 };
 
 // Function to get the icon by name
-export const localIcon = (iconName: string): string | undefined => {
+export const localIcon = (iconName: string): string => {
     const icon = iconMap[iconName];
     if (!icon) {
         console.error(`Icon with name "${iconName}" not found.`);

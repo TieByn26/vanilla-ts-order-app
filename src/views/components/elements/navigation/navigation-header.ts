@@ -1,28 +1,24 @@
-import { elementHtml } from "@/utils";
-import {
-    ic_menu, ic_search, ic_calendar, ic_notification,
-    ic_envelope_menu, ic_gray, ic_chevron, ic_avatar
-} from "@/constants";
+import { HtmlElement } from "../../../../utils";
+import { localIcon } from "../../../../assets/icons";
 
 export class NavHeader {
-    elhtml = new elementHtml();
     list = [
-        this.navHeaderLink(ic_search),
-        this.navHeaderLink(ic_calendar),
-        this.navHeaderLink(ic_notification),
-        this.navHeaderLink(ic_envelope_menu),
-        this.navHeaderLink(ic_gray)
+        this.navHeaderLink(localIcon("ic_search")),
+        this.navHeaderLink(localIcon("ic_calendar")),
+        this.navHeaderLink(localIcon("ic_notification")),
+        this.navHeaderLink(localIcon("ic_envelope_menu")),
+        this.navHeaderLink(localIcon("ic_gray"))
     ];
 
     constructor() {
         
     }
-    navHeaderLink(icon){
-        const a = this.elhtml.aElement("","#");
-        const img = this.elhtml.imgElement(icon,"icon","");
+    navHeaderLink(icon: string): Node  {
+        const a = HtmlElement.aElement("","#");
+        const img = HtmlElement.imgElement(icon,"icon","");
         a.appendChild(img);
 
-        return a.outerHTML;
+        return a;
     };
     
 
@@ -30,7 +26,7 @@ export class NavHeader {
         const ul = document.createElement("ul");
         this.list.forEach(item => {
             const li = document.createElement("li");
-            li.innerHTML = item;
+            li.appendChild(item);
             ul.appendChild(li);
         });
         return ul;
@@ -38,20 +34,20 @@ export class NavHeader {
 
     manager() {
         const figure = document.createElement("figure");
-        const img = this.elhtml.imgElement(ic_avatar,"icon","");
+        const img = HtmlElement.imgElement(localIcon("ic_avatar"),"icon","");
         figure.appendChild(img);
 
         const div = document.createElement("div");
-        const spanName = this.elhtml.spanElement("span-name","Jay Hargudson");
-        const spanPosition = this.elhtml.spanElement("span-position","Manager");
+        const spanName = HtmlElement.spanElement("span-name","Jay Hargudson");
+        const spanPosition = HtmlElement.spanElement("span-position","Manager");
 
         div.appendChild(spanName);
         div.appendChild(spanPosition);
 
         const chevron = document.createElement("div");
-        chevron.innerHTML = this.navHeaderLink(ic_chevron);
+        chevron.appendChild(this.navHeaderLink(localIcon("ic_chevron")));
 
-        const container = this.elhtml.divELement("container-admin");
+        const container = HtmlElement.divELement("container-admin");
         container.appendChild(figure);
         container.appendChild(div);
         container.appendChild(chevron);
@@ -61,32 +57,32 @@ export class NavHeader {
 
     header() {
         // nav-header_menu
-        const divContainer1 = this.elhtml.divELement("nav-header_menu");
-        divContainer1.innerHTML = this.navHeaderLink(ic_menu);
+        const divContainer1 = HtmlElement.divELement("nav-header_menu");
+        divContainer1.appendChild(this.navHeaderLink(localIcon("ic_menu")));
 
         // nav-header_container
-        const divContainer2 = this.elhtml.divELement("nav-header_container");
+        const divContainer2 = HtmlElement.divELement("nav-header_container");
 
         // nav-header_container-leftmenu
-        const divContainer3 = this.elhtml.divELement("nav-header_container-leftmenu");
+        const divContainer3 = HtmlElement.divELement("nav-header_container-leftmenu");
         divContainer3.appendChild(this.navList());
 
         // nav-header_container-rightmenu
-        const divContainer4 = this.elhtml.divELement("nav-header_container-rightmenu");
+        const divContainer4 = HtmlElement.divELement("nav-header_container-rightmenu");
         divContainer4.appendChild(this.manager());
 
         divContainer2.appendChild(divContainer3);
         divContainer2.appendChild(divContainer4);
 
         // Append all to a container div and return it
-        const navTop = this.elhtml.divELement("nav-header-top");;
+        const navTop = HtmlElement.divELement("nav-header-top");;
         navTop.appendChild(divContainer1);
         navTop.appendChild(divContainer2);
 
         return navTop;
     }
 
-    render() {
-        return this.header().outerHTML;
+    render(): Node {
+        return this.header();
     }
 }

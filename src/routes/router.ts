@@ -14,7 +14,7 @@ export class Router {
      * get params from the current URL
      * @returns {object|null}
      */
-    static getParam() {
+    static getParam(): Record<string, string> | null{
         const urlPath = window.location.pathname;
     
         const routes = Router.getFlattenedRoutes() as { path: string }[];
@@ -35,7 +35,7 @@ export class Router {
      * @returns {Array}
      */
     
-    static getFlattenedRoutes() {
+    static getFlattenedRoutes() : Record<string, any>[]{
         return routes.flatMap(route => {
             if (route.children) {
                 return route.children.map(child => ({
@@ -71,7 +71,9 @@ export class Router {
      * get the component and render it based on the current URL
      * @returns {object}
      */
-    static getRoutes() {
+    static getRoutes(): { childNode: HTMLElement | null,
+         path: string | null
+         , params: Record<string, string> | null }{
         const urlPath = window.location.pathname;
         for (const route of Router.getFlattenedRoutes()) {
             const { path, component, parentComponent } = route;
@@ -94,7 +96,7 @@ export class Router {
      * @param {boolean} isEqualLength 
      * @returns {boolean}
      */
-    static correctPath(url: string, path: string, isEqualLength = true) {
+    static correctPath(url: string, path: string, isEqualLength: boolean = true): boolean {
         const urlSegments = url.split("/");
         const pathSegments = path.split("/");
         
@@ -118,7 +120,7 @@ export class Router {
      * create a "404" component when no matching route is found
      * @returns {HTMLElement}
      */
-    static createNotFoundComponent() {
+    static createNotFoundComponent(): HTMLElement {
         const div = document.createElement("div");
         div.className = "notfound-page";
         const img = document.createElement("img");
