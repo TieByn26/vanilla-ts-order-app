@@ -65,12 +65,12 @@ export class navLink {
         const catePath = ["/categories", "/category-detail/:categoryId", "/add-category"];
         if (this.label === "Product") {
             return this.componentPaths.some(path => this.matchPath(currentPath, path)) ||
-                   currentPath.startsWith("/product") ||
+                   currentPath.startsWith("/") ||
                    catePath.some(path => this.matchPath(currentPath, path))
         }
         if (this.label === "Product List") {
             return this.componentPaths.some(path => this.matchPath(currentPath, path)) ||
-                   currentPath.startsWith("/product");
+                   currentPath.startsWith("/");
         }
         if (this.label === "Categories") {
             return this.componentPaths.some(path => this.matchPath(currentPath, path));
