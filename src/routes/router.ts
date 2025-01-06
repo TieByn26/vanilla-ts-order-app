@@ -7,9 +7,12 @@ export class Router {
         /**
          * web start
          */
+
         Router.pushState(window.location.pathname);
     }
-
+    static async authentication(){
+       
+    }
     /**
      * get params from the current URL
      * @returns {object|null}
@@ -81,6 +84,9 @@ export class Router {
                 const params = Router.extractParams(urlPath, path);
                 const childNode = new component().render();
                 if (parentComponent) {
+                    if (path === "/login") { 
+                        return { childNode: new parentComponent().authrender(childNode), path, params };
+                    }
                     return { childNode: new parentComponent().render(childNode), path, params };
                 }
                 return { childNode, path, params };
@@ -111,7 +117,7 @@ export class Router {
     static routeToMatchingComponent() {
         const app = document.querySelector("#app");
         const { childNode } = Router.getRoutes();
-        if (app) {
+        if (app ) {
             app.replaceChildren(childNode || Router.createNotFoundComponent());
         }
     }

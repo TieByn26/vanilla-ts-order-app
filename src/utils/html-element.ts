@@ -1,3 +1,4 @@
+type ButtonType = "button" | "submit" | "reset";
 export class HtmlElement{
     constructor(){
 
@@ -42,4 +43,21 @@ export class HtmlElement{
 
         return li;
     }
+    static inputElement(type: string, className: string = "", placeholder: string = "", name: string = "") {
+        const input = document.createElement("input");
+        input.className = className;
+        input.type = type;
+        input.placeholder = placeholder;
+        input.name = name; 
+    
+        return input;
+    }
+    static buttonElement(text: string, className: string = "", type: ButtonType = "button") {
+        const button = document.createElement("button");
+        button.className = className;
+        button.type = type; 
+        button.textContent = text;
+        return button;
+    }
+    
 }
