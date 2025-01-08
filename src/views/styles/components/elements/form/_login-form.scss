@@ -1,0 +1,27 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+.form-login{
+    @include flex($display:flex, $direction:column, $justify:center, $align:center, $gap:20px);
+    padding-top: 200px;
+    .form {
+        @include flex($display:flex, $direction:column, $justify:center, $align:center, $gap:20px);
+        &_username, &_password{
+            @include size($width:400px, $height:50px);
+            @include boder($boder: 2px solid black, $boder-radius: 5px);
+            @include font($font-size: 20px);
+        }
+    
+        &_submit{
+            @include size($width:100px, $height:50px);  
+            @include font($font-size: 20px);
+            @include boder($boder-radius: 80px);
+            @include color($color: #ffff,$background: #5C59E8);
+
+            &:hover{
+                scale: 1.1;
+            }
+        }
+    }
+    
+}

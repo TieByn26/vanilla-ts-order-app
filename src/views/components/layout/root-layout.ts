@@ -36,4 +36,8 @@ export class RootLayout {
         this.mainContent.container.replaceChildren(childNode);
         return this.rootContainer;
     }
+    authrender(chidNode: Node){
+        this.rootContainer.replaceChildren(chidNode);
+        return this.rootContainer;
+    }
 }
