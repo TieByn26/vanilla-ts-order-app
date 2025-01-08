@@ -1,0 +1,36 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+.table-head {
+    &_row {
+        @include flex($display: flex);
+        th{
+            width: 122.5px;
+            padding: 18px 22px; 
+            @include color($color: $neutral-Black-Black-500);
+            @include font($font_size: 14px, $font-weight: 500, $line-height: 20px);
+            @include flex($display: flex);
+            letter-spacing: 0.07px;
+            border-bottom: 1px solid $neutral-gray-gray-50;
+            align-self: stretch;
+        }
+        th:first-child{
+            width: 250px;
+            @include flex($display: flex, $align: center, $gap: 8px);
+            padding: 18px 22px; 
+            gap: 8px;
+        }
+        th:nth-child(2){
+            width: 99px;
+        }
+        th:nth-child(3){
+            width: 129px;
+        }
+        th:nth-child(6){
+            width: 154px;
+        }
+        th:nth-child(7){
+            width: 131px;
+        }
+    }
+}

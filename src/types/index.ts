@@ -1,1 +1,1 @@
-ex
+export * from "./component";

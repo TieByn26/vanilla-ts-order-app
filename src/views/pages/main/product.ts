@@ -1,30 +1,30 @@
+import { ProductIntro } from "../../../models";
 import { HtmlElement } from "../../../utils";
 import { HeadProduct } from "../../components/elements/head";
-// import { TableProduct } from "../components";
-// import { CategoryController, productController } from "@/controllers";
+import { productTable } from "../../components/elements/table";
+import { FindProduct } from "../../../controllers";
 
 export class Product {
     container: HTMLElement;
+    products: FindProduct = new FindProduct();
     constructor() {
         this.container = HtmlElement.divELement("product-container");
         this.handleData();
     }
-    initHead(products?: Node, categories?: Node){
+    initHead(products?: Node){
         const head = new HeadProduct().render();
         this.container.appendChild(head);
     }
-    initTable(products: Node, categories: Node){
+    initTable(products: ProductIntro[]){
         const tableContainer = HtmlElement.divELement("product-table-container");
-        // const table = new TableProduct(products, categories).render();
-        // const foot = new FootProduct(products, categories).render();
-        // tableContainer.append(table, foot);
+        const table = productTable(products);
+        tableContainer.append(table);
         this.container.appendChild(tableContainer);
     }
     async handleData(){
-        // const products = await productController.getAllProduct();
-        // const categories = await CategoryContro  ller.getAllCategory();
+        await this.products.init();
         this.initHead();
-        // this.initTable(products, categories);
+        this.initTable(this.products.getProducts());
     }
     render(): Node{
         return this.container;
