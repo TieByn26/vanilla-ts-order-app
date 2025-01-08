@@ -10,7 +10,7 @@ export class Toast {
         const spanTitle = HtmlElement.spanElement("",title);
         const spanMessage = HtmlElement.spanElement("",message);
         divContent.append(spanTitle, spanMessage);
-        const cancel = HtmlElement.imgElement(localIcon("pic_white"),"icon","cancel-icon");
+        const cancel = HtmlElement.imgElement(localIcon("ic_cross"),"icon","cancel-icon");
         toastM.append(iconn, divContent, cancel);
 
         setTimeout(()=>{
