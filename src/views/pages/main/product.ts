@@ -22,7 +22,7 @@ export class Product {
         this.container.appendChild(tableContainer);
     }
     async handleData(){
-        await this.products.init();
+        await this.products.init(`?_start=${0}&_limit=${10}`);
         this.initHead();
         this.initTable(this.products.getProducts());
     }
