@@ -1,0 +1,15 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+.search-container{
+    width: 320px;
+    padding: 6px 8px;
+    @include boder($boder: 1px solid $neutral-gray-gray, $boder-radius: 8px);
+    @include flex($display: flex, $align: center, $gap: 4px);
+    @include color($color:$neutral-Gray-Gray-400, $background: $background-color);
+    .search-input{
+        border: none;
+        outline: none;
+        @include font();
+    }
+}

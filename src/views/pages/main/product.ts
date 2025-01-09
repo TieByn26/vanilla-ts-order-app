@@ -11,19 +11,19 @@ export class Product {
         this.container = HtmlElement.divELement("product-container");
         this.handleData();
     }
-    initHead(products?: Node){
-        const head = new HeadProduct().render();
+    initHead(table: HTMLElement){
+        const head = new HeadProduct(table).render();
         this.container.appendChild(head);
     }
     initTable(products: ProductIntro[]){
         const tableContainer = HtmlElement.divELement("product-table-container");
-        const table = productTable(products);
+        const table = productTable(products) as HTMLElement;
+        this.initHead(table);
         tableContainer.append(table);
         this.container.appendChild(tableContainer);
     }
     async handleData(){
         await this.products.init(`?_start=${0}&_limit=${10}`);
-        this.initHead();
         this.initTable(this.products.getProducts());
     }
     render(): Node{
