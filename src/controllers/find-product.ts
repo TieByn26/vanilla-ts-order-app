@@ -3,6 +3,7 @@ import { ProductIntro } from "../types/product";
 import { ProductMapper } from "../models";
 import { Toast } from "../views/components/elements/toast";
 import { localImage } from "../assets/images";
+import { message } from "../utils";
 
 export class FindProduct {
     private products: ProductIntro[] = [];
@@ -18,7 +19,7 @@ export class FindProduct {
                 this.products.push(ProductMapper.toProductIntro(product));
             });
         } catch (error) {
-            Toast.toastShow("toast-error", localImage("icon_error"), "Error", "Error fetching products!");
+            Toast.toastShow("toast-error", localImage("icon_error"), "Error", message.findError);
         }
     }
 

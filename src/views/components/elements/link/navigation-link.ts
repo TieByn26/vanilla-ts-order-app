@@ -23,10 +23,7 @@ export class navLink {
     chevup?: string;
 
     constructor({icon, iconActive, label, to, componentPaths = [], chevdown, chevup}: NavLink) {
-        if (chevdown && chevup){
-            this.chevdown = chevdown;
-            this.chevup = chevup;
-        }
+        chevdown && chevup && ([this.chevdown, this.chevup] = [chevdown, chevup]);
         this.icon = icon;
         this.iconActive = iconActive;
         this.label = label;
@@ -43,21 +40,16 @@ export class navLink {
             HtmlElement.imgElement(this.icon, "icon", ""),
             HtmlElement.spanElement("", label)
         );
-        if (this.chevdown){
-            link.appendChild(HtmlElement.imgElement(this.chevdown, "icon","chev"));
-        }
+        this.chevdown && link.appendChild(HtmlElement.imgElement(this.chevdown, "icon","chev"));
         return link;
     }
 
     getActiveClass(): string {
-        const isActive = this.isActive();
-        if (isActive) {
-            this.icon = this.iconActive;
-            if (this.chevdown) {
-                this.chevdown = this.chevup;
-            }
-        }
-        return `nav-link ${isActive ? "nav-link-active" : ""}`;
+        this.isActive() && (
+            this.icon = this.iconActive,
+            this.chevdown && (this.chevdown = this.chevup)
+        );
+        return `nav-link ${this.isActive() ? "nav-link-active" : ""}`;
     }
 
     isActive() {

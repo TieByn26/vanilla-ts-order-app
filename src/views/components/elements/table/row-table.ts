@@ -3,8 +3,6 @@ import { localIcon } from "../../../../assets/icons";
 import { HtmlElement } from "../../../../utils";
 import { Link } from "../link";
 import { DeleteProduct } from "../../../../controllers/delete-product";
-import { Toast } from "../toast";
-import { localImage } from "../../../../assets/images";
 
 /**
  * Create a cell with the action icons for the product
@@ -31,13 +29,6 @@ const cellAction = (id: number): Node => {
 
         const deleteProduct = new DeleteProduct();  
         await deleteProduct.init(id);
-
-        Toast.toastShow(
-            "toast-success",
-            localImage("icon_success"),
-            "DELETE SUCCESS",
-            deleteProduct.getRespone()
-        );
         currentRow.remove();
     });
 

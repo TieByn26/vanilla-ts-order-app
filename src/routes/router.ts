@@ -62,9 +62,7 @@ export class Router {
         const pathSegments = path.split("/");
     
         return pathSegments.reduce<Record<string, string>>((params, segment, i) => {
-            if (segment.startsWith(":")) {
-                params[segment.slice(1)] = urlSegments[i];
-            }
+            segment.startsWith(":") && (params[segment.slice(1)] = urlSegments[i]);
             return params;
         }, {});
     }
@@ -92,7 +90,7 @@ export class Router {
                 return { childNode, path, params };
             }
         }
-        return { childNode: null, path: null, params: null };
+        return { childNode: null, path: null, params: null }; 
     }
 
     /**
@@ -117,9 +115,7 @@ export class Router {
     static routeToMatchingComponent() {
         const app = document.querySelector("#app");
         const { childNode } = Router.getRoutes();
-        if (app ) {
-            app.replaceChildren(childNode || Router.createNotFoundComponent());
-        }
+        app && app.replaceChildren(childNode || Router.createNotFoundComponent());
     }
 
     /**
