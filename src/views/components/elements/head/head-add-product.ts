@@ -23,7 +23,7 @@ export class HeadAddProduct{
         const buttonContainer = HtmlElement.divELement("productde-head-container_button");
         const saveButton = this.createButton("Save Product",localIcon("ic_save"));
         buttonContainer.append(
-            new button().render("button-white",{to:"/product",label:"Cancel",icon:localIcon("ic_cross")}),
+            new button().render("button-white",{to:"/",label:"Cancel",icon:localIcon("ic_cross")}),
             saveButton
         );
         this.container.append(breadcrumb, buttonContainer);

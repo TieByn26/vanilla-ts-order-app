@@ -29,7 +29,7 @@ export const axiosApiUpdateData = async (endPointUrl: string, updatedData: objec
 };
 
 //Function patch data
-export const axiosApiPatchData = async (endPointUrl: string, updatedData: string) => {
+export const axiosApiPatchData = async (endPointUrl: string, updatedData: object) => {
     try {
         const res = await axiosInstance.patch(endPointUrl, updatedData);
     } catch (err: any) {
