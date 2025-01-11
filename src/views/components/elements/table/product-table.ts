@@ -1,6 +1,7 @@
 import { headTable } from ".";
 import { ProductIntro } from "../../../../models";
 import { rowTable } from ".";
+import { footTable } from "./foot-table";
 
 /**
  * Create a table with the product information
@@ -15,5 +16,6 @@ export const productTable = (products: ProductIntro[]): Node => {
         tbody.appendChild(rowTable(product));
     });
     table.appendChild(tbody);
+    table.appendChild(footTable());
     return table;
 }

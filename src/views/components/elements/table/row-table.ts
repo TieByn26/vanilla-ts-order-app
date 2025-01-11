@@ -2,6 +2,9 @@ import { ProductIntro } from "../../../../models";
 import { localIcon } from "../../../../assets/icons";
 import { HtmlElement } from "../../../../utils";
 import { Link } from "../link";
+import { DeleteProduct } from "../../../../controllers/delete-product";
+import { Toast } from "../toast";
+import { localImage } from "../../../../assets/images";
 
 /**
  * Create a cell with the action icons for the product
@@ -20,15 +23,30 @@ const cellAction = (id: number): Node => {
     const editLink = new Link(`/product-detail/${id}`, "").render();
     editLink.appendChild(editIcon);
     
-    trashIcon.addEventListener("click", (e) => {
+    trashIcon.addEventListener("click", async (e) => {
         e.preventDefault();
-        console.log("Delete product have id: ", id);
+
+        // use closest to get the row of the product
+        const currentRow = trashIcon.closest("tr");
+        if (!currentRow) return;
+
+        const deleteProduct = new DeleteProduct();  
+        await deleteProduct.init(id);
+
+        Toast.toastShow(
+            "toast-success",
+            localImage("icon_success"),
+            "DELETE SUCCESS",
+            deleteProduct.getRespone()
+        );
+        currentRow.remove();
     });
 
     cellactions.append(eyeLink, editLink, trashIcon);
 
     return cellactions;
 };
+
 
 
 /**

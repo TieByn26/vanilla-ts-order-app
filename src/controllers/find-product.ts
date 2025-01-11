@@ -5,9 +5,9 @@ import { ProductMapper } from "../models";
 export class FindProduct {
     private products: ProductIntro[] = [];
 
-    public async init(): Promise<void> {
+    public async init(url = ""): Promise<void> {
         try {
-            const data = await findData<any[]>("/products");
+            const data = await findData<any[]>(`/products${url}`);
             data.map((product) => {
                 this.products.push(ProductMapper.toProductIntro(product));
             });
