@@ -76,7 +76,7 @@ export class NavList {
                     const li2 = document.createElement("li");
                     const componentPathCate = ["/categories", "/category-detail/:categoryId", "/add-category"];
                     const navlink2 = new navLink({
-                        icon: localIcon("pic_white"),
+                        icon: localImage("pic_white"),
                         iconActive: localIcon("ic_product_blue"),
                         label: "Categories",
                         to: "categories",
