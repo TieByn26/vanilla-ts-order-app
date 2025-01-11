@@ -24,54 +24,53 @@ export class ProductDetail {
         this.eventAddProduct();
         validateInput(this.container);
     }
+    /**
+     * Check the input focus
+     * @returns void
+     */
     checkInputFocus() {
         const inputs = this.container.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>('input, textarea, select');
         const saveButtons = this.container.querySelectorAll<HTMLButtonElement>('.save-button');
         const valueComplete = this.container.querySelector<HTMLSpanElement>('.completion-container_value');
         
         const initialValues = new Map<Element, string>();
+        // set initial values 
         inputs.forEach(input => {
-            if (input.type !== 'file') {
-                initialValues.set(input, input.value);
-            }
+            !input.type.includes('file') && initialValues.set(input, input.value);
         });
     
         const toggleSaveButton = () => {
             const validInputs = Array.from(inputs).filter(input => input.type !== 'file');
             const filledInputs = validInputs.filter(input => input.value.trim() !== '');
             const totalInputs = validInputs.length;
+            // check if the input value is changed
             const isChanged = validInputs.some(input => input.value !== initialValues.get(input));
             const percentage = (filledInputs.length / totalInputs) * 100;
     
+            // check if the input is filled
             saveButtons.forEach(button => {
-                if (filledInputs.length > 0) {
-                    valueComplete!.textContent = `${Math.round(percentage)}%`;
-    
-                    if (percentage === 100 && isChanged) {
-                        button.removeAttribute('unactive');
-                        button.classList.add('active');
-                    } else {
-                        button.setAttribute('unactive', '');
-                        button.classList.remove('active');
-                    }
-                } else {
-                    button.setAttribute('unactive', '');
-                    button.classList.remove('active');
-                    valueComplete!.textContent = `0%`;
-                }
+                const hasFilledInputs = filledInputs.length > 0;
+                const isComplete = hasFilledInputs && percentage === 100 && isChanged;
+            
+                valueComplete!.textContent = `${Math.round(hasFilledInputs ? percentage : 0)}%`;
+            
+                button.toggleAttribute('unactive', !isComplete);
+                button.classList.toggle('active', isComplete);
             });
+            
         };
-    
+        // start checking the input focus
         toggleSaveButton();
 
         inputs.forEach(input => {
-            if (input.type !== 'file') {
-                input.addEventListener('input', toggleSaveButton);
-            }
+            !input.type.includes('file') && input.addEventListener('input', toggleSaveButton);
         });
     }
     
-    
+    /**
+     * Event to add product
+     * @returns void
+     */
     eventAddProduct() {
         const inputs = this.container.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>('input, textarea, select');
         const saveButtons = this.container.querySelectorAll<HTMLButtonElement>('.save-button');

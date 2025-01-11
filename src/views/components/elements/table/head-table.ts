@@ -1,3 +1,8 @@
+/**
+ * Head Table Component
+ * @param keys 
+ * @returns 
+ */
 export const headTable = (keys = [
     "Product",
     "SKU",
@@ -10,22 +15,18 @@ export const headTable = (keys = [
 ]): Node => {
     const headTable = document.createElement("thead");
     headTable.className = "table-head";
+
     const row = document.createElement("tr");
     row.className = "table-head_row";
     keys.forEach((key) => {
         const cell = document.createElement("th");
-        if (key === "Product") {
-            const checkbox = document.createElement("input");
-            checkbox.type = "checkbox";
-            cell.appendChild(checkbox);
-            const textNode = document.createTextNode(` ${key}`); 
-            cell.appendChild(textNode);
-        } else {
-            const textNode = document.createTextNode(` ${key}`); 
-            cell.appendChild(textNode);
-        }
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        const textNode = document.createTextNode(` ${key}`);
+        key === "Product" ? cell.append(checkbox, textNode) : cell.appendChild(textNode);
         row.appendChild(cell);
     });
+
     headTable.appendChild(row);
     return headTable;
 };

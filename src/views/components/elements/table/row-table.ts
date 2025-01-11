@@ -1,4 +1,4 @@
-import { ProductIntro } from "../../../../models";
+import { ProductIntro } from "../../../../types";
 import { localIcon } from "../../../../assets/icons";
 import { HtmlElement } from "../../../../utils";
 import { Link } from "../link";
@@ -27,8 +27,7 @@ const cellAction = (id: number): Node => {
         e.preventDefault();
 
         // use closest to get the row of the product
-        const currentRow = trashIcon.closest("tr");
-        if (!currentRow) return;
+        const currentRow = trashIcon.closest("tr")!;
 
         const deleteProduct = new DeleteProduct();  
         await deleteProduct.init(id);
@@ -73,15 +72,16 @@ export const rowTable = (product: ProductIntro): Node => {
         if (["id", "name", "variant", "imageUrl"].includes(key)) {
             return;
         }
+        
         const typedKey = key as keyof ProductIntro;
         const cell = document.createElement("td");
         const text = document.createElement("span");
         // Add a class to the cell based on the status of the product
-        if (typedKey === "status") {
-            const check = product[typedKey] === "Low Stock" ? "lowstock" :
-                product[typedKey] === "Published" ? "published" : "draft";
-            text.className = check;
-        }
+        typedKey === "status" && (text.className = 
+            product[typedKey] === "Low Stock" ? "lowstock" : 
+            product[typedKey] === "Published" ? "published" : 
+            "draft"
+        );        
         text.textContent = product[typedKey] as string;
         cell.appendChild(text);
         row.appendChild(cell);

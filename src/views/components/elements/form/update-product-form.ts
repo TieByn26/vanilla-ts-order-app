@@ -1,6 +1,5 @@
 import { HtmlElement } from "../../../../utils";
 import { localIcon } from "../../../../assets/icons";
-import { localImage } from "../../../../assets/images";
 import { button } from "../button";
 import { Router } from "../../../../routes";
 import { FindProductDetail } from "../../../../controllers";
@@ -19,7 +18,7 @@ export class UpdateProductForm {
         this.containerRight = HtmlElement.divELement("add-product-form_right");
     }
 
-    // Phương thức async để gọi API
+    // Fetch product detail
     async fetchProductDetail() {
         try {
             this.productDetail = await this.findProductDetail.init(`/${Router.getParam()!.productId}`) as Product;
@@ -34,13 +33,11 @@ export class UpdateProductForm {
 
         const generalContainer = HtmlElement.divELement("general-container");
         const title = HtmlElement.spanElement("general-container_title", "General Information");
-        //name container
         const nameContainer = HtmlElement.divELement("general-container_name");
         const nameTitle = HtmlElement.spanElement("general-container_name-title", "Product Name");
         const nameInput = HtmlElement.inputElement("input", "general-container_name-input", "Enter product name", "name");
         nameInput.value = this.productDetail.name;
         nameContainer.append(nameTitle, nameInput);
-        //Description container
         const descriptionContainer = HtmlElement.divELement("general-container_description");
         const descriptionTitle = HtmlElement.spanElement("general-container_description-title", "Description");
         const descriptionArea = HtmlElement.textAreaElement("general-container_description-area", "Enter product description", "description");
@@ -69,18 +66,17 @@ export class UpdateProductForm {
         photoContainer.append(photoTitle, photoUpload);
         mediaContainer.append(title, photoContainer);
     
-        // Cloudinary config
         const CLOUDINARY_UPLOAD_PRESET = 'tienpreset';
         const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dhsv9jnul/image/upload';
     
-        // Xử lý upload ảnh
         const buttonUploadHandle = () => {
-            photoInput.click(); // Mở cửa sổ chọn ảnh
+            photoInput.click(); 
         };
+        // Upload image to cloudinary 
         photoInput.addEventListener('change', async (e) => {
-            const target = e.target as HTMLInputElement;
-            if (target && target.files && target.files[0]) {
-                const file = target.files[0];
+            const file = (e.target as HTMLInputElement)?.files?.[0];
+        
+            file && (async () => {
                 const formData = new FormData();
                 formData.append('file', file);
                 formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
@@ -92,16 +88,15 @@ export class UpdateProductForm {
                     });
                     const data = await response.json();
         
-                    if (data.secure_url) {
-                        photoTempInput.value = data.secure_url; 
-                        image.src = data.secure_url;
-                    }
+                    data.secure_url && (
+                        photoTempInput.value = data.secure_url,
+                        image.src = data.secure_url
+                    );
                 } catch (error) {
                     console.error("Upload failed:", error);
                 }
-            }
+            })();
         });
-        
         
         button.addEventListener('click', buttonUploadHandle);
     

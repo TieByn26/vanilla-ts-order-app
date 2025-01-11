@@ -10,7 +10,7 @@ export const updateProduct = async (id: string, data: PostProductBody) => {
     try {
         await axiosApiPatchData(`/products/${id}`, data);
     } catch (err: any) {
-        console.log(">>> Message error:", err.message);
+        return err.message;
     }
 }
 
