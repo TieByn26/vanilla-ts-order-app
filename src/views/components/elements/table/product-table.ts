@@ -1,5 +1,5 @@
 import { headTable } from ".";
-import { ProductIntro } from "../../../../models";
+import { ProductIntro } from "../../../../types";
 import { rowTable } from ".";
 import { footTable } from "./foot-table";
 

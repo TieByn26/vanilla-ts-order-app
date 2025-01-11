@@ -6,34 +6,34 @@ export const axiosApiGetData = async (endPointUrl: string) => {
         const res = await axiosInstance.get(endPointUrl);
         return res.data;
     } catch (err: any) {
-        console.log(">>> Message error: ", err.message);
+        return err.message;
     }
 };
 
 // Function add new data
 export const axiosApiAddData = async (endPointUrl: string, newData: object) => {
     try {
-        const res = await axiosInstance.post(endPointUrl, newData);
+        await axiosInstance.post(endPointUrl, newData);
     } catch (err: any) {
-        console.log(">>> Message error:", err.message);
+        return err.message;
     }
 };
 
 // Function update data
 export const axiosApiUpdateData = async (endPointUrl: string, updatedData: object) => {
     try {
-        const res = await axiosInstance.put(endPointUrl, updatedData);
+        await axiosInstance.put(endPointUrl, updatedData);
     } catch (err: any) {
-        console.log(">>> Message error:", err.message);
+        return err.message;
     }
 };
 
 //Function patch data
 export const axiosApiPatchData = async (endPointUrl: string, updatedData: object) => {
     try {
-        const res = await axiosInstance.patch(endPointUrl, updatedData);
+        await axiosInstance.patch(endPointUrl, updatedData);
     } catch (err: any) {
-        console.log(">>> Message error:", err.message);
+        return err.message;
     }
 };
 
@@ -41,8 +41,8 @@ export const axiosApiPatchData = async (endPointUrl: string, updatedData: object
 // Function delete data
 export const axiosApiDeleteData = async (endPointUrl: string) => {
     try {
-        const res = await axiosInstance.delete(endPointUrl);
+        await axiosInstance.delete(endPointUrl);
     } catch (err: any) {
-        console.log(">>> Message error:", err.message);
+        return err.message;
     }
 };

@@ -16,32 +16,29 @@ export const search = (table: HTMLElement): Node => {
 
     searchContainer.append(image, input);
 
+    // Fetch products from the API
     const fetchProducts = async (query?: string) => {
-        const url = query !== "" ? `` : `?_start=0&_limit=10`;
+        const url = query?.trim() ? `` : `?_start=0&_limit=10`;
         const findProduct = new FindProduct();
         await findProduct.init(url);
+    
         const tbodyOld = table.querySelector("tbody");
         const tbodyNew = document.createElement("tbody");
         const fragment = document.createDocumentFragment();
     
-        if (query?.trim() !== "") {
-            const filteredProducts = findProduct.getProducts().filter((product) =>
-                product.name.toLowerCase().includes(query as string)
-            );
-            filteredProducts.forEach((product) => {
-                fragment.appendChild(rowTable(product));
-            });
-            tbodyNew.appendChild(fragment);
-            tbodyOld?.replaceChildren(tbodyNew);
-        } else {
-            findProduct.getProducts().forEach((product) => {
-                fragment.appendChild(rowTable(product));
-            });
-            tbodyNew.appendChild(fragment);
-            tbodyOld?.replaceChildren(tbodyNew);
-        }
-    };
+        const products = query?.trim()
+            ? findProduct.getProducts().filter(product =>
+                product.name.toLowerCase().includes(query.toLowerCase())
+            )
+            : findProduct.getProducts();
     
+        products.forEach(product => {
+            fragment.appendChild(rowTable(product));
+        });
+    
+        tbodyNew.appendChild(fragment);
+        tbodyOld?.replaceChildren(tbodyNew);
+    };
     
     input.addEventListener(
         "input",
@@ -54,7 +51,7 @@ export const search = (table: HTMLElement): Node => {
     return searchContainer;
 };
 
-//debounce
+//debounce 
 const debounce = (func: Function, delay: number) => {
     let debounceTimer: number;
     return (...args: any[]) => {
