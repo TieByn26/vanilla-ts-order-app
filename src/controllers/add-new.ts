@@ -1,5 +1,5 @@
 import { addProduct } from "../services";
-import { PostProductBody } from "../models";
+import { PostProductBody } from "../types/product";
 import { Toast } from "../views/components/elements/toast";
 import { localImage } from "../assets/images";
 

@@ -1,5 +1,5 @@
 import { findData } from "../services";
-import { ProductIntro } from "../models";
+import { ProductIntro } from "../types/product";
 import { ProductMapper } from "../models";
 import { Toast } from "../views/components/elements/toast";
 import { localImage } from "../assets/images";
