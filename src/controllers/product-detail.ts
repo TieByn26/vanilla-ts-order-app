@@ -6,6 +6,11 @@ import { Product } from "../types/product";
 export class FindProductDetail {
     private product: Product;
 
+    /**
+     * Initialize the product detail
+     * @param url 
+     * @returns 
+     */
     public async init(url = ""): Promise<Product | void> {
         try {
             const data = await findData<Product>(`/products${url}`);

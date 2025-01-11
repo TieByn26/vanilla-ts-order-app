@@ -4,6 +4,11 @@ import { Toast } from "../views/components/elements/toast";
 import { localImage } from "../assets/images";
 
 export class AddNew {
+    /**
+     * Initialize the product
+     * @param data 
+     * @returns 
+     */
     public async init(data: PostProductBody): Promise<void> {
         try {
             const response = await addProduct(data as PostProductBody);
