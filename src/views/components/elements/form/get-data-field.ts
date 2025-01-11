@@ -33,14 +33,13 @@ export const getDataField = (elements: FormElement[]): Record<string, any> => {
     ]);
 
     elements.forEach((element) => {
-        if (element.name && element.type !== "file") {  // "File" cần viết hoa chữ cái F thành "file"
-            // get key for handlers map
-            const key = element.tagName.toLowerCase() === "input"
-                ? `input:${(element as HTMLInputElement).type === "checkbox" ? "checkbox" : "default"}`
-                : element.tagName.toLowerCase();
-
-            data[element.name] = handlers.get(key)?.(element) ?? null;
-        }
+        let key: string;
+        (element.name && element.type !== "file") && (
+            key = element.tagName.toLowerCase() === "input"
+            ? `input:${(element as HTMLInputElement).type === "checkbox" ? "checkbox" : "default"}`
+            : element.tagName.toLowerCase(),
+            data[element.name] = handlers.get(key)?.(element) ?? null
+        )
     });
 
     return data;

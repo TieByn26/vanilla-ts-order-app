@@ -8,9 +8,7 @@ export const validateInput = (container: HTMLElement): void => {
         input.addEventListener('keydown', (event: KeyboardEvent): void => {
             const allowedKeys: string[] = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Delete', 'Tab'];
 
-            if (!/^\d$/.test(event.key) && !allowedKeys.includes(event.key)) {
-                event.preventDefault();
-            }
+        !/^\d$/.test(event.key) && !allowedKeys.includes(event.key) && event.preventDefault();
         });
 
         input.addEventListener('input', (event: Event): void => {
