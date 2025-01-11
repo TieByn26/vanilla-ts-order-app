@@ -4,7 +4,7 @@ import { localImage } from "../../../../assets/images";
 import { button } from "../button";
 import { Router } from "../../../../routes";
 import { FindProductDetail } from "../../../../controllers";
-import { Product } from "../../../../models";
+import { Product } from "../../../../types/product";
 
 export class UpdateProductForm {
     container: HTMLElement;

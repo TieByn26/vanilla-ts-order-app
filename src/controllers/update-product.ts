@@ -1,7 +1,7 @@
 import { updateProduct } from "../services/update-product";
 import { Toast } from "../views/components/elements/toast";
 import { localImage } from "../assets/images";
-import  { PostProductBody } from "../models";
+import  { PostProductBody } from "../types/product";
 
 // Update product by id
 export class UpdateProduct {

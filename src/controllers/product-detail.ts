@@ -1,7 +1,7 @@
 import { findData } from "../services";
 import { Toast } from "../views/components/elements/toast";
 import { localImage } from "../assets/images";
-import { Product } from "../models";
+import { Product } from "../types/product";
 
 export class FindProductDetail {
     private product: Product;

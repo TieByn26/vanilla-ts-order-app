@@ -6,6 +6,7 @@ import { getDataField } from "../../components/elements/form/get-data-field";
 import { UpdateProduct } from "../../../controllers/update-product";
 import { ProductMapper } from "../../../models";
 import { Router } from "../../../routes";
+import { validateInput } from "../../../utils/validate";
 
 export class ProductDetail {
     container: HTMLElement;
@@ -21,6 +22,7 @@ export class ProductDetail {
         this.container.appendChild(form);
         this.checkInputFocus();
         this.eventAddProduct();
+        validateInput(this.container);
     }
     checkInputFocus() {
         const inputs = this.container.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>('input, textarea, select');

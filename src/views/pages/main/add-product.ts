@@ -5,6 +5,7 @@ import { Form } from "../../components/elements/form";
 import { getDataField } from "../../components/elements/form/get-data-field";
 import { AddNew } from "../../../controllers";
 import { ProductMapper } from "../../../models";
+import { validateInput } from "../../../utils/validate";
 
 
 export class AddProduct {
@@ -15,6 +16,7 @@ export class AddProduct {
         this.initForm();
         this.checkInputFocus();
         this.eventAddProduct();
+        validateInput(this.container);
     }
     async initForm(){
         const head = new HeadAddProduct();

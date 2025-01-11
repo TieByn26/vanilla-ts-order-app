@@ -1,5 +1,5 @@
 import { axiosApiPatchData } from ".";
-import { PostProductBody } from "../models";
+import { PostProductBody } from "../types/product";
 
 /**
  * Update product by id
