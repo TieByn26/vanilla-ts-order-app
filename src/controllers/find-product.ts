@@ -7,6 +7,10 @@ import { localImage } from "../assets/images";
 export class FindProduct {
     private products: ProductIntro[] = [];
 
+    /**
+     * Initialize the products
+     * @param url 
+     */
     public async init(url = ""): Promise<void> {
         try {
             const data = await findData<any[]>(`/products${url}`);

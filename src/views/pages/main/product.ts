@@ -1,4 +1,4 @@
-import { ProductIntro } from "../../../models";
+import { ProductIntro } from "../../../types";
 import { HtmlElement } from "../../../utils";
 import { HeadProduct } from "../../components/elements/head";
 import { productTable } from "../../components/elements/table";
