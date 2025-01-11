@@ -14,7 +14,7 @@ export class FindProduct {
      */
     public async init(url = ""): Promise<void> {
         try {
-            const data = await findData<any[]>(`/products${url}`);
+            const data = await findData<ProductIntro[]>(`/products${url}`);
             data.map((product) => {
                 this.products.push(ProductMapper.toProductIntro(product));
             });

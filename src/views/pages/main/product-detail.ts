@@ -7,6 +7,7 @@ import { UpdateProduct } from "../../../controllers/update-product";
 import { ProductMapper } from "../../../models";
 import { Router } from "../../../routes";
 import { validateInput } from "../../../utils/validate";
+import { PostProductBody } from "../../../types";
 
 export class ProductDetail {
     container: HTMLElement;
@@ -78,8 +79,8 @@ export class ProductDetail {
         saveButtons.forEach(button => {
             button.addEventListener('click', async () => {
                 !button.hasAttribute('unactive') && (() => {
-                    const data = getDataField(Array.from(inputs));
-                    const dataToPost = ProductMapper.toPostProductBody(data);
+                    const data:PostProductBody = getDataField(Array.from(inputs)) as PostProductBody;
+                    const dataToPost:PostProductBody = ProductMapper.toPostProductBody(data);
                     const updateProduct = new UpdateProduct();
                     updateProduct.init(Router.getParam()!.productId ,dataToPost);
                 })();

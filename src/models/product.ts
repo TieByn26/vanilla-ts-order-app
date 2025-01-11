@@ -18,7 +18,7 @@ export class ProductMapper {
     };
   }
 
-  static toPostProductBody(data: any): PostProductBody {
+  static toPostProductBody(data: PostProductBody): PostProductBody {
     return {
       sku: data.sku,
       name: data.name,
