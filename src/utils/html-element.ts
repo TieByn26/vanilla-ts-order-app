@@ -67,10 +67,10 @@ export class HtmlElement{
         button.textContent = text;
         return button;
     }
-    static selectElement(className: string = ""){
+    static selectElement(className: string = "", name: string){
         const select = document.createElement("select");
         select.className = className;
-
+        select.name = name;
         return select;
     }
     static optionElement(value: string, text: string){
