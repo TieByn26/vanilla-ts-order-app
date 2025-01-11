@@ -9,7 +9,6 @@ export class DeleteProduct {
             this.response = "Product deleted successfully!";
         } catch (error) {
             this.response = "Error deleting product!";
-            console.error("Error deleting product:", error);
         }
     }
 

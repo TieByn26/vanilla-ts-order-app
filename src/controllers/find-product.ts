@@ -1,6 +1,8 @@
 import { findData } from "../services";
 import { ProductIntro } from "../models";
 import { ProductMapper } from "../models";
+import { Toast } from "../views/components/elements/toast";
+import { localImage } from "../assets/images";
 
 export class FindProduct {
     private products: ProductIntro[] = [];
@@ -12,7 +14,7 @@ export class FindProduct {
                 this.products.push(ProductMapper.toProductIntro(product));
             });
         } catch (error) {
-            console.error("Error fetching products:", error);
+            Toast.toastShow("toast-error", localImage("icon_error"), "Error", "Error fetching products!");
         }
     }
 

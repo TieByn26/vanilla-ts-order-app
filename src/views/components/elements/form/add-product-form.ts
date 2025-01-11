@@ -1,9 +1,7 @@
-// import { ic_chevron_down, ic_dollar, icon_error, icon_success, pic_media_ad, pic_media_de } from "@/constants";
 import { HtmlElement } from "../../../../utils";
 import { localIcon } from "../../../../assets/icons";
 import { localImage } from "../../../../assets/images";
 import { button } from "../button";
-import { Form } from ".";
 
 export class AddProductForm {
     container: HTMLElement;
@@ -34,20 +32,64 @@ export class AddProductForm {
         generalContainer.append(title, nameContainer, descriptionContainer);
         return generalContainer;
     }
-    media(){
+    media() {
         const mediaContainer = HtmlElement.divELement("media-container");
         const title = HtmlElement.spanElement("media-container_title", "Media");
         const photoContainer = HtmlElement.divELement("media-container_photo");
         const photoTitle = HtmlElement.spanElement("media-container_photo-title", "Photo");
         const photoUpload = HtmlElement.divELement("media-container_photo-upload");
-        const image = HtmlElement.imgElement(localImage("icon_success"),"icon","media-container_photo-upload-image");
+        const photoInput = HtmlElement.inputElement("file", "media-container_photo-upload-input", "Upload product photo", "image");
+        const photoTempInput = HtmlElement.inputElement("input", "media-container_photo-upload-input", "Upload product photo", "imageUrl");
+        photoTempInput.style.display = "none"; 
+        photoInput.style.display = "none";  
+    
+        const image = HtmlElement.imgElement(localImage("icon_success"), "icon", "media-container_photo-upload-image");
         const photoNote = HtmlElement.spanElement("media-container_photo-upload-note", "Drag and drop image here, or click add image");
-        const button = HtmlElement.buttonElement( "Add Image","media-container_photo-upload-button");
-        photoUpload.append(image, photoNote, button);
+        const button = HtmlElement.buttonElement("Add Image", "media-container_photo-upload-button");
+    
+        photoUpload.append(image, photoInput, photoTempInput, photoNote, button);
         photoContainer.append(photoTitle, photoUpload);
         mediaContainer.append(title, photoContainer);
+    
+        // Cloudinary config
+        const CLOUDINARY_UPLOAD_PRESET = 'tienpreset';
+        const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dhsv9jnul/image/upload';
+    
+        // Xử lý upload ảnh
+        const buttonUploadHandle = () => {
+            photoInput.click(); // Mở cửa sổ chọn ảnh
+        };
+        photoInput.addEventListener('change', async (e) => {
+            const target = e.target as HTMLInputElement;
+            if (target && target.files && target.files[0]) {
+                const file = target.files[0];
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+        
+                try {
+                    const response = await fetch(CLOUDINARY_UPLOAD_URL, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const data = await response.json();
+        
+                    if (data.secure_url) {
+                        photoTempInput.value = data.secure_url; 
+                        image.src = data.secure_url;
+                    }
+                } catch (error) {
+                    console.error("Upload failed:", error);
+                }
+            }
+        });
+        
+        
+        button.addEventListener('click', buttonUploadHandle);
+    
         return mediaContainer;
     }
+    
     pricing(){
         const pricingContainer = HtmlElement.divELement("pricing-container");
         const title = HtmlElement.spanElement("pricing-container_title", "Pricing");
@@ -58,8 +100,12 @@ export class AddProductForm {
         const amountContainer = HtmlElement.divELement("pricing-container_amount");
         const amountTitle = HtmlElement.spanElement("pricing-container_amount-title", "VAT Amount (%)");
         const amountInput = HtmlElement.inputElement("input", "pricing-container_amount-input", "Enter product amount", "amount");
+        const salesContainer = HtmlElement.divELement("pricing-container_sales");
+        const salesTitle = HtmlElement.spanElement("pricing-container_sales-title", "Sales Price");
+        const salesInput = HtmlElement.inputElement("input", "pricing-container_sales-input", "Enter product sales price", "sales");
+        salesContainer.append(salesTitle, salesInput);
         amountContainer.append(amountTitle, amountInput);
-        pricingContainer.append(title, priceContainer, amountContainer);
+        pricingContainer.append(title, priceContainer, amountContainer, salesContainer);
         return pricingContainer;
     }
     inventory(){
@@ -87,10 +133,10 @@ export class AddProductForm {
         const title = HtmlElement.spanElement("category-container_title", "Category");
         const selectContainer = HtmlElement.divELement("category-container_select");
         const selectTitle = HtmlElement.spanElement("category-container_select-title", "Product Category");
-        const select = HtmlElement.selectElement("category-container_select-select");
-        select.append(HtmlElement.optionElement("Select Category", "Select Category"));
-        select.append(HtmlElement.optionElement("Category 1", "Category 1"));
-        select.append(HtmlElement.optionElement("Category 2", "Category 2"));
+        const select = HtmlElement.selectElement("category-container_select-select","category");
+        select.append(HtmlElement.optionElement("Watch", "Watch"));
+        select.append(HtmlElement.optionElement("Bag", "Bag"));
+        select.append(HtmlElement.optionElement("Phone", "Phone"));
         selectContainer.append(selectTitle, select);
         categoryContainer.append(title, selectContainer);
         return categoryContainer;
@@ -102,135 +148,15 @@ export class AddProductForm {
         const label = HtmlElement.spanElement("status-container_title-label", "Draft");
         const selectContainer = HtmlElement.divELement("status-container_select");
         const selectTitle = HtmlElement.spanElement("status-container_select-title", "Product Status");
-        const select = HtmlElement.selectElement("status-container_select-select");
-        select.append(HtmlElement.optionElement("Select Status", "Select Status"));
-        select.append(HtmlElement.optionElement("Active", "Active"));
-        select.append(HtmlElement.optionElement("Inactive", "Inactive"));
+        const select = HtmlElement.selectElement("status-container_select-select","status");
+        select.append(HtmlElement.optionElement("Draft", "Draft"));
+        select.append(HtmlElement.optionElement("Published", "Published"));
+        select.append(HtmlElement.optionElement("Low Stock", "Low Stock"));
         titleContainer.append(title, label);
         selectContainer.append(selectTitle, select);
         statusContainer.append(titleContainer, selectContainer);
         return statusContainer;
     }
-
-    // // function to attach listeners to all inputs and dropdowns
-    // attachInputListeners(inputs, dropdowns, initialValues, button1, button2) {
-    //     const checkChanges = () => {
-    //         let hasChanges = false;
-
-    //         // check all inputs
-    //         inputs.forEach((input, index) => {
-    //             if (input.value !== initialValues.inputs[index]) {
-    //                 hasChanges = true;
-    //             }
-    //         });
-
-    //         // check all dropdowns
-    //         dropdowns.forEach((dropdown, index) => {
-    //             if (dropdown.value !== initialValues.dropdowns[index]) {
-    //                 hasChanges = true;
-    //             }
-    //         });
-
-    //         if (hasChanges) {
-    //             button1.removeAttribute("unactive");
-    //         } else {
-    //             button1.setAttribute("unactive", "true");
-    //         }
-    //         if (hasChanges) {
-    //             button2.removeAttribute("unactive");
-    //         } else {
-    //             button2.setAttribute("unactive", "true");
-    //         }
-    //     };
-
-    //     // attach listeners to all inputs
-    //     inputs.forEach((input) => {
-    //         input.addEventListener("input", checkChanges);
-    //     });
-
-    //     // attach listeners to all dropdowns
-    //     dropdowns.forEach((dropdown) => {
-    //         dropdown.addEventListener("change", checkChanges);
-    //     });
-    // }
-
-    // handleData(head, foott) {
-    //     const button1 = foott.querySelector(".productde-container-foot_button .save-button");
-    //     const button2 = head.querySelector(".save-button");
-    //     this.information(head, foott);
-    //     this.media();
-    //     this.pricing(head, foott);
-    //     this.inventory(head, foott);
-    //     this.createEventSave(button1);
-    //     this.createEventSave(button2);
-    // }
-
-    // /**
-    //  * @param {HTMLElement} button 
-    //  */
-    // createEventSave(button) {
-    //     button.addEventListener('click', async () => {
-    //         if (!button.hasAttribute("unactive")) {
-                
-    //             const nameInput = this.container.querySelector('.input-name');
-    //             const descriptionArea = this.container.querySelector('.input-description');
-    //             const priceInput = this.container.querySelector('.input-price');
-    //             const skuInput = this.container.querySelector('.input-sku');
-    //             const barcodeInput = this.container.querySelector('.input-barcode');
-    //             const quantityInput = this.container.querySelector('.input-quantity');
-    //             const statusSelect = document.querySelector('.dropdown-status');
-    //             const categorySelect = document.querySelector('.dropdown-category');
-
-    //             const newProductData = {
-    //                 sku: skuInput.value,
-    //                 name: nameInput.value,
-    //                 sales: 120,
-    //                 variant: "3 Variants",
-    //                 quantity: parseInt(quantityInput.value),
-    //                 amount: "$1,210.00",
-    //                 price: '$' + priceInput.value,
-    //                 status: statusSelect.value,
-    //                 added: new Date().toLocaleDateString("en-GB", {
-    //                     day: '2-digit',
-    //                     month: 'short',
-    //                     year: 'numeric'
-    //                 }),
-    //                 description: descriptionArea.value,
-    //                 categoryId: parseInt(categorySelect.value),
-    //                 imageId: 1,
-    //                 barcode: barcodeInput.value
-    //             };  
-
-    //             try {
-    //                 await productController.addNewProduct(newProductData);
-                    
-    //                 this.updateInitialValues(newProductData);
-    //                 button.setAttribute("unactive", "true");
-                    
-    //                 console.log(newProductData);
-    //                 Toast.toastShow("toast-success",icon_success,"ADD SUCCESS","Successful add product");
-    //             } catch (err) {
-    //                 Toast.toastShow("toast-error",icon_error,"ADD ERROR","Error add product");
-    //             }
-    //         } else {
-    //             Toast.toastShow("toast-error",icon_error,"ERROR","Pls enter all input");
-    //         }
-    //     });
-    // }
-
-    // updateInitialValues(newData) {
-    //     const inputs = this.container.querySelectorAll('input, textarea');
-    //     inputs.forEach(input => {
-    //         const name = input.name || input.id;
-    //         if (newData[name] !== undefined) {
-    //             input.value = newData[name];
-    //         }
-    //     });
-    // }
-
-    // showToast(message, type) {
-    //     console.log(`${type.toUpperCase()}: ${message}`);
-    // }
 
     addProductFormFoot() {
         const addProductFormFoot = HtmlElement.divELement("add-product-form_foot");
@@ -252,9 +178,11 @@ export class AddProductForm {
         button.appendChild(HtmlElement.imgElement(icon, "icon", ""));
         button.appendChild(HtmlElement.spanElement("",text));  
         button.className = "save-button";
+        button.type = "submit";
         button.setAttribute('unactive', '');
         return button;
     };
+    
     render() {
         return this.container;
     }

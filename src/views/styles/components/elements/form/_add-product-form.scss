@@ -184,6 +184,27 @@
                     align-self: stretch;
                 }
             }
+            &_sales{
+                @include flex($display: flex, $direction: column, $align: flex-start, $gap: 4px);
+                @include font($font_size: 14px, $font-weight: 500, $line-height: 20px);
+                letter-spacing: 0.09px;
+                color: $neutral-Black-Black-600;
+                align-self: stretch;
+
+                &-title {
+                    @include font($font-family: $primary-font, $font_size: 14px, $font-weight: 500, $line-height: 20px);
+                    letter-spacing: 0.09px;
+                    color: $neutral-Black-Black-600;
+                    align-self: stretch;
+                }
+
+                &-input {
+                    @include boder($boder: 1px solid $neutral-gray-gray, $boder-radius: 8px);
+                    background-color: $neutral-gray-gray-25;
+                    padding: 8px 12px;
+                    align-self: stretch;
+                }
+            }
         }
 
         .inventory-container {
