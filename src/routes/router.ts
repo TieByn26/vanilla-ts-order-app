@@ -82,9 +82,6 @@ export class Router {
                 const params = Router.extractParams(urlPath, path);
                 const childNode = new component().render();
                 if (parentComponent) {
-                    if (path === "/login") { 
-                        return { childNode: new parentComponent().authrender(childNode), path, params };
-                    }
                     return { childNode: new parentComponent().render(childNode), path, params };
                 }
                 return { childNode, path, params };
