@@ -1,0 +1,339 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+.add-product-container{
+    position: relative;
+}
+.add-product-form {
+    @include flex($display: flex, $align: flex-start, $gap: 24px);
+    align-self: stretch;
+    padding-bottom: 70px;
+
+    &_left {
+        width: 792px;
+        @include flex($display: flex, $direction: column, $align: flex-start, $gap: 24px);
+        flex: 1 0 0;
+
+        .general-container {
+            @include flex($display: flex, $direction: column, $align: center, $gap: 14px);
+            @include boder($boder: 1px solid $neutral-gray-gray, $boder-radius: 8px);
+            background-color: $background-color;
+            padding: 24px;
+            align-self: stretch;
+
+            &_title {
+                @include font($font_size: 18px, $font-weight: 500, $line-height: 28px);
+                letter-spacing: 0.09px;
+                color: $color-primary-font;
+                align-self: stretch;
+            }
+
+            &_name {
+                @include flex($display: flex, $direction: column, $align: flex-start, $gap: 4px);
+                @include font($font_size: 14px, $font-weight: 500, $line-height: 20px);
+                letter-spacing: 0.09px;
+                color: $neutral-Black-Black-600;
+                align-self: stretch;
+
+                &-title {
+                    align-self: stretch;
+                }
+
+                &-input {
+                    @include boder($boder: 1px solid $neutral-gray-gray, $boder-radius: 8px);
+                    background-color: $neutral-gray-gray-25;
+                    padding: 8px 12px;
+                    align-self: stretch;
+                }
+            }
+
+            &_description {
+                @include flex($display: flex, $direction: column, $align: flex-start, $gap: 4px);
+                @include font($font-family: $primary-font, $font_size: 14px, $font-weight: 500, $line-height: 20px);
+                letter-spacing: 0.09px;
+                align-self: stretch;
+
+                &-title {
+                    color: $neutral-Black-Black-600;
+                    align-self: stretch;
+                }
+
+                &-area {
+                    resize: none;
+                    @include boder($boder: 1px solid $neutral-gray-gray, $boder-radius: 8px);
+                    background-color: $neutral-gray-gray-25;
+                    height: 156px;
+                    padding: 8px 12px;
+                    align-self: stretch;
+                }
+            }
+        }
+
+        .media-container {
+            @include flex($display: flex, $direction: column, $align: center, $gap: 14px);
+            @include boder($boder: 1px solid $neutral-gray-gray, $boder-radius: 8px);
+            background-color: $background-color;
+            padding: 24px;
+            align-self: stretch;
+
+            &_title {
+                @include font($font_size: 18px, $font-weight: 500, $line-height: 28px);
+                letter-spacing: 0.09px;
+                color: $color-primary-font;
+                align-self: stretch;
+            }
+
+
+            &_photo {
+                @include flex($display: flex, $direction: column, $align: flex-start, $gap: 4px);
+                align-self: stretch;
+
+                &-title {
+                    @include font($font-family: $primary-font, $font_size: 14px, $font-weight: 500, $line-height: 20px);
+                    letter-spacing: 0.09px;
+                    color: $neutral-Black-Black-600;
+                    align-self: stretch;
+                }
+
+                &-upload {
+                    padding: 24px 12px;
+                    background-color: $neutral-gray-gray-25;
+                    @include flex($display: flex, $direction: column, $justify: center, $align: center, $gap: 16px);
+                    @include boder($boder: 1px dashed $neutral-gray-gray, $boder-radius: 8px);
+                    align-self: stretch;
+
+                    &-image {
+                        @include size($width: 100px, $height: 100px);
+                    }
+
+                    &-note {
+                        @include font($font-family: $primary-font, $font_size: 14px, $font-weight: 400, $line-height: 20px);
+                        letter-spacing: 0.07px;
+                        color: $neutral-Black-Black-600;
+                    }
+
+                    &-button {
+                        padding: 10px 14px;
+                        border-radius: 8px;
+                        background-color: $button-tab-color;
+                        color: $nav-color;
+                        font-weight: 700;
+                    }
+
+                    &-button:hover {
+                        scale: 1.1;
+                    }
+                }
+            }
+        }
+
+        .pricing-container {
+            @include flex($display: flex, $direction: column, $align: center, $gap: 14px);
+            @include boder($boder: 1px solid $neutral-gray-gray, $boder-radius: 8px);
+            background-color: $background-color;
+            padding: 24px;
+            align-self: stretch;
+
+            &_title {
+                @include font($font_size: 18px, $font-weight: 500, $line-height: 28px);
+                letter-spacing: 0.09px;
+                color: $color-primary-font;
+                align-self: stretch;
+            }
+
+            &_price {
+                @include flex($display: flex, $direction: column, $align: flex-start, $gap: 4px);
+                @include font($font_size: 14px, $font-weight: 500, $line-height: 20px);
+                letter-spacing: 0.09px;
+                color: $neutral-Black-Black-600;
+                align-self: stretch;
+
+                &-title {
+                    @include font($font-family: $primary-font, $font_size: 14px, $font-weight: 500, $line-height: 20px);
+                    letter-spacing: 0.09px;
+                    color: $neutral-Black-Black-600;
+                    align-self: stretch;
+                }
+
+                &-input {
+                    @include boder($boder: 1px solid $neutral-gray-gray, $boder-radius: 8px);
+                    background-color: $neutral-gray-gray-25;
+                    padding: 8px 12px;
+                    align-self: stretch;
+                }
+            }
+
+            &_amount {
+                @include flex($display: flex, $direction: column, $align: flex-start, $gap: 4px);
+                @include font($font_size: 14px, $font-weight: 500, $line-height: 20px);
+                letter-spacing: 0.09px;
+                color: $neutral-Black-Black-600;
+                align-self: stretch;
+
+                &-title {
+                    @include font($font-family: $primary-font, $font_size: 14px, $font-weight: 500, $line-height: 20px);
+                    letter-spacing: 0.09px;
+                    color: $neutral-Black-Black-600;
+                    align-self: stretch;
+                }
+
+                &-input {
+                    @include boder($boder: 1px solid $neutral-gray-gray, $boder-radius: 8px);
+                    background-color: $neutral-gray-gray-25;
+                    padding: 8px 12px;
+                    align-self: stretch;
+                }
+            }
+        }
+
+        .inventory-container {
+            @include flex($display: flex, $direction: column, $align: center, $gap: 14px);
+            @include boder($boder: 1px solid $neutral-gray-gray, $boder-radius: 8px);
+            background-color: $background-color;
+            padding: 24px;
+            align-self: stretch;
+
+            &_title {
+                @include font($font_size: 18px, $font-weight: 500, $line-height: 28px);
+                letter-spacing: 0.09px;
+                color: $color-primary-font;
+                align-self: stretch;
+            }
+
+            &_body {
+                @include flex($display: flex, $align: flex-start, $gap: 14px);
+                align-self: stretch;
+
+                div {
+                    @include flex($display: flex, $direction: column, $align: flex-start, $gap: 4px);
+                    flex: 1 0 0;
+
+                    span {
+                        @include font($font-family: $primary-font, $font_size: 14px, $font-weight: 500, $line-height: 20px);
+                        letter-spacing: 0.09px;
+                        color: $neutral-Black-Black-600;
+                        align-self: stretch;
+                    }
+
+                    input {
+                        @include boder($boder: 1px solid $neutral-gray-gray, $boder-radius: 8px);
+                        background-color: $neutral-gray-gray-25;
+                        padding: 8px 12px;
+                        align-self: stretch;
+                    }
+                }
+            }
+        }
+    }
+
+    &_right {
+        width: 264px;
+        @include flex($display: flex, $direction: column, $align: flex-start, $gap: 24px);
+
+        .category-container {
+            @include flex($display: flex, $direction: column, $align: center, $gap: 14px);
+            @include boder($boder: 1px solid $neutral-gray-gray, $boder-radius: 8px);
+            background-color: $background-color;
+            padding: 24px;
+            align-self: stretch;
+
+            &_title {
+                @include font($font_size: 18px, $font-weight: 500, $line-height: 28px);
+                letter-spacing: 0.09px;
+                color: $color-primary-font;
+                align-self: stretch;
+            }
+
+            &_select {
+                @include flex($display: flex, $direction: column, $align: flex-start, $gap: 4px);
+                align-self: stretch;
+
+                &-title {
+                    @include font($font-family: $primary-font, $font_size: 14px, $font-weight: 500, $line-height: 20px);
+                    letter-spacing: 0.09px;
+                    color: $neutral-Black-Black-600;
+                    align-self: stretch;
+                }
+
+                &-select {
+                    @include boder($boder: 1px solid $neutral-gray-gray, $boder-radius: 8px);
+                    background-color: $neutral-gray-gray-25;
+                    padding: 8px 12px;
+                    align-self: stretch;
+                }
+            }
+        }
+
+        .status-container {
+            @include flex($display: flex, $direction: column, $align: center, $gap: 14px);
+            @include boder($boder: 1px solid $neutral-gray-gray, $boder-radius: 8px);
+            background-color: $background-color;
+            padding: 24px;
+            align-self: stretch;
+
+            &_title {
+                @include flex($display: flex, $justify: space-between, $align: center, $gap: 12px);
+                align-self: stretch;
+
+                &-text {
+                    @include font($font_size: 18px, $font-weight: 500, $line-height: 28px);
+                    letter-spacing: 0.09px;
+                    color: $color-primary-font;
+                    align-self: stretch;
+                }
+
+                &-label {
+                    padding: 4px 12px;
+                    border-radius: 100px;
+                    background-color: $neutral-gray-gray-50;
+                    color: $neutral-Gray-Gray-400;
+                    font-weight: 600;
+                }
+            }
+
+            &_select {
+                @include flex($display: flex, $direction: column, $align: flex-start, $gap: 4px);
+                align-self: stretch;
+
+                &-title {
+                    @include font($font-family: $primary-font, $font_size: 14px, $font-weight: 500, $line-height: 20px);
+                    letter-spacing: 0.09px;
+                    color: $neutral-Black-Black-600;
+                    align-self: stretch;
+                }
+
+                &-select {
+                    @include boder($boder: 1px solid $neutral-gray-gray, $boder-radius: 8px);
+                    background-color: $neutral-gray-gray-25;
+                    padding: 8px 12px;
+                    align-self: stretch;
+                }
+            }
+        }
+    }
+}
+
+.add-product-form_foot {
+    padding: 16px;
+    width: 76%;
+    bottom: 0;
+    left: 314px;
+    @include flex($display: flex, $justify: space-between, $align: center, $gap: 16px);
+    align-self: stretch;
+    border-top: 1px solid $neutral-gray-gray;
+    background: $background-color;
+    position: fixed;
+
+    .completion-container {
+        &_title {
+            @include font($font-family: $primary-font, $font_size: 16px, $font-weight: 500, $line-height: 20px);
+            letter-spacing: 0.09px;
+            color: $neutral-Black-Black-600;
+            align-self: stretch;
+        }
+
+        &_value {
+
+        }
+    }
+}
