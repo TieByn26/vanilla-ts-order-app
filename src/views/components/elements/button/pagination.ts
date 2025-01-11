@@ -44,10 +44,10 @@ export const paginationRender = (): Node => {
 };
 
 const updatePagination = async (currentPage: number) => {
-    const startIndex = (currentPage - 1) * itemsPerPage + 1;
+    const startIndex = (currentPage - 1) * itemsPerPage;
     const findProduct = new FindProduct();
     
-    await findProduct.init(`?_start=${startIndex - 1}&_limit=${itemsPerPage}`);
+    await findProduct.init(`?_start=${startIndex}&_limit=${itemsPerPage}`);
     const products = findProduct.getProducts();
 
     const tbodyOld = document.querySelector("tbody");
