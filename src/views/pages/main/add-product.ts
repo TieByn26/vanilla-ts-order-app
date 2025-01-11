@@ -6,6 +6,7 @@ import { getDataField } from "../../components/elements/form/get-data-field";
 import { AddNew } from "../../../controllers";
 import { ProductMapper } from "../../../models";
 import { validateInput } from "../../../utils/validate";
+import { PostProductBody } from "../../../types/product";
 
 
 export class AddProduct {
@@ -67,7 +68,7 @@ export class AddProduct {
         saveButtons.forEach(button => {
             button.addEventListener('click', async () => {
                 !button.hasAttribute('unactive') && (() => {
-                    const data = getDataField(Array.from(inputs));
+                    const data: PostProductBody = getDataField(Array.from(inputs)) as PostProductBody;
                     const dataToPost = ProductMapper.toPostProductBody(data);
                     const addNew = new AddNew();
                     addNew.init(dataToPost);
