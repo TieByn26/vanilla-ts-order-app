@@ -3,13 +3,15 @@ import { button } from "../button";
 import { RoutesPath } from "../../../../routes";
 import { Breadcrumb } from "../breadcrumb";
 import { localIcon } from "../../../../assets/icons";
+import { search } from "../search";
 
 export class HeadProduct{
     container: HTMLElement;
 
-    constructor(){
+    constructor(table: HTMLElement){
         this.container = HtmlElement.divELement("product-head-container");
         this.initHeadTop();
+        this.initHeadBottom(table);
     }
     initHeadTop(){
         const headTop = HtmlElement.divELement("product-head-container_top");
@@ -22,7 +24,11 @@ export class HeadProduct{
         );
         headTop.append(breadcrumb, buttonContainer);
         this.container.appendChild(headTop);
-
+    }
+    initHeadBottom(table: HTMLElement){
+        const headBottom = HtmlElement.divELement("product-head-container_bottom");
+        headBottom.append(search(table));
+        this.container.appendChild(headBottom);
     }
     render(): Node{
         return this.container;
