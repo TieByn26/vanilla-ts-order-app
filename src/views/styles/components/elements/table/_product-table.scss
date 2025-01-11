@@ -1,0 +1,8 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+table {
+    @include flex($display: flex, $direction: column, $align: stretch);
+    @include boder($boder: 1px solid $neutral-gray-gray-50, $boder-radius: 8px);
+    box-shadow: 0px 1.5px 2px 0px rgba(16, 24, 40, 0.10);
+}

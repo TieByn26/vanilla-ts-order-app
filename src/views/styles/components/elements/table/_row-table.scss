@@ -1,0 +1,92 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+tbody {
+    @include color($background: $background-color);
+    tr{
+        td{
+            width: 122.5px;
+            @include color($color: $neutral-Black-Black-500);
+            @include font($font_size: 14px, $font-weight: 500, $line-height: 20px);
+            letter-spacing: 0.07px;
+            padding: 18px 22px;
+            border-bottom: 1px solid $neutral-gray-gray-50;
+        }
+        td:first-child{
+            width: 250px;
+            @include flex($display: flex, $align: center, $gap: 8px);  
+            img{
+                @include size($width: 44px, $height: 44px);
+                @include boder($boder-radius: 8px, $boder: 1px solid $neutral-gray-gray-50);
+            }
+            .product-title{
+                @include flex($display: flex, $direction: column, $align: flex-start, $gap: 4px);
+
+                .product-name{
+                    @include color($color: $color-primary-font);
+                }
+                .product-variant{
+                    @include font($font_size: 12px, $font-weight: 400, $line-height: 18px);
+                    @include color($color: $color-primary-font);
+                    letter-spacing: 0.06px;
+                }
+            }
+        }
+        td:nth-child(2){
+            width: 99px;
+            color: $nav-color;
+            font-weight: 600;
+        }
+        td:nth-child(3){
+            width: 129px;
+        }
+        td:nth-child(6){
+            width: 154px;
+        }
+        td:nth-child(7){
+            width: 131px;
+        }
+    }
+}
+
+.published, .lowstock, .draft {
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-weight: 600;
+}
+.published{
+    @include color($color:$secondary-Green-Green-500, $background: $secondary-Green-Green-50);
+}
+.lowstock{
+    @include color($color: $secondary-Yellow-Yellow-500, $background: $secondary-Yellow-Yellow-50);
+}
+.draft{
+    @include color($color: $neutral-Gray-Gray-400, $background: $neutral-gray-gray-50);
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: 2px solid $color-second-font;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+input[type="checkbox"]:checked {
+    background-color: $nav-color;
+    border-color: $nav-color;
+}
+
+input[type="checkbox"]:checked::after {
+    content: '\2713'; 
+    color: white;
+    font-size: 16px;
+    display: block;
+    text-align: center;
+    line-height: 20px;
+} 
