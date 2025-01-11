@@ -52,6 +52,14 @@ export class HtmlElement{
     
         return input;
     }
+    static textAreaElement(className: string = "", placeholder: string = "", name: string = ""){
+        const textArea = document.createElement("textarea");
+        textArea.className = className;
+        textArea.placeholder = placeholder;
+        textArea.name = name;
+
+        return textArea;
+    }
     static buttonElement(text: string, className: string = "", type: ButtonType = "button") {
         const button = document.createElement("button");
         button.className = className;
@@ -59,5 +67,17 @@ export class HtmlElement{
         button.textContent = text;
         return button;
     }
-    
+    static selectElement(className: string = ""){
+        const select = document.createElement("select");
+        select.className = className;
+
+        return select;
+    }
+    static optionElement(value: string, text: string){
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = text;
+
+        return option;
+    }
 }
