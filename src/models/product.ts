@@ -1,57 +1,18 @@
-import { Product, ProductIntro } from "../types/product";
-import { PostProductBody } from "../types/product";
-import { UpdateProduct } from "../types/product";
+import { Product, ProductIntro, PostProductBody, UpdateProduct } from "../types/product";
 
 export class ProductMapper {
   static toProductIntro(data: Product): ProductIntro {
-    return {
-      id: data.id,
-      sku: data.sku,
-      name: data.name,
-      variant: data.variant,
-      imageUrl: data.imageUrl,
-      category: data.category,
-      quantity: data.quantity,
-      price: data.price,
-      status: data.status,
-      added: data.added,
-    };
+    const { id, sku, name, variant, imageUrl, category, quantity, price, status, added } = data;
+    return { id, sku, name, variant, imageUrl, category, quantity, price, status, added }  as ProductIntro;
+  }
+  
+  static toPostProductBody(data: PostProductBody): PostProductBody {
+    return { ...data, sales: Number(data.sales), quantity: Number(data.quantity) } as PostProductBody;
   }
 
-  static toPostProductBody(data: PostProductBody): PostProductBody {
-    return {
-      sku: data.sku,
-      name: data.name,
-      sales: Number(data.sales),
-      variant: data.variant,
-      quantity: Number(data.quantity),
-      amount: data.amount,
-      price: data.price,
-      status: data.status,
-      added: data.added,
-      description: data.description,
-      category: data.category,
-      imageUrl: data.imageUrl,
-      barcode: data.barcode,
-    };
-  }
   static toUpdateProduct(data: UpdateProduct): UpdateProduct {
-    return {
-      id: data.id,
-      sku: data.sku,
-      name: data.name,
-      sales: Number(data.sales),
-      variant: data.variant,
-      quantity: Number(data.quantity),
-      amount: data.amount,
-      price: data.price,
-      status: data.status,
-      added: data.added,
-      description: data.description,
-      category: data.category,
-      imageUrl: data.imageUrl,
-      barcode: data.barcode,
-    };
+    return { ...data, sales: Number(data.sales), quantity: Number(data.quantity) } as UpdateProduct;
   }
 }
+
 
