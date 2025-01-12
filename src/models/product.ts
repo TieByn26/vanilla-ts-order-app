@@ -1,9 +1,9 @@
-import { ProductIntro } from "../types/product";
+import { Product, ProductIntro } from "../types/product";
 import { PostProductBody } from "../types/product";
 import { UpdateProduct } from "../types/product";
 
 export class ProductMapper {
-  static toProductIntro(data: any): ProductIntro {
+  static toProductIntro(data: Product): ProductIntro {
     return {
       id: data.id,
       sku: data.sku,
@@ -35,7 +35,7 @@ export class ProductMapper {
       barcode: data.barcode,
     };
   }
-  static toUpdateProduct(data: any): UpdateProduct {
+  static toUpdateProduct(data: UpdateProduct): UpdateProduct {
     return {
       id: data.id,
       sku: data.sku,
